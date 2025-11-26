@@ -55,6 +55,14 @@
 </head>
 
 <body>
+    
+    <div id="nav"></div>
+<script>
+  fetch("nav.html")
+    .then(r => r.text())
+    .then(h => { document.getElementById("nav").innerHTML = h; });
+</script>
+
   <div class="box">
     <h2>Generate ID</h2>
 
@@ -90,13 +98,5 @@
 
   <script src="protect.js"></script>
   <script src="generate.js"></script>
-  
-  <div id="nav"></div>
-<script>
-  fetch("nav.html")
-    .then(r => r.text())
-    .then(h => { document.getElementById("nav").innerHTML = h; });
-</script>
-
 </body>
 </html>

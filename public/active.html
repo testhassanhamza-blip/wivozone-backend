@@ -23,6 +23,14 @@
 </head>
 
 <body>
+
+    <div id="nav"></div>
+<script>
+  fetch("nav.html")
+    .then(r => r.text())
+    .then(h => { document.getElementById("nav").innerHTML = h; });
+</script>
+
   <h2>Active Users</h2>
 
   <table>
@@ -52,13 +60,5 @@
 
   <script src="protect.js"></script>
   <script src="active.js"></script>
-
-  <div id="nav"></div>
-<script>
-  fetch("nav.html")
-    .then(r => r.text())
-    .then(h => { document.getElementById("nav").innerHTML = h; });
-</script>
-
 </body>
 </html>
