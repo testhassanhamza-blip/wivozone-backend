@@ -4,7 +4,7 @@ async function generateUser() {
   const duration = document.getElementById("duration").value;
 
   if (!name || !phone || !duration) {
-    alert("Veuillez remplir tous les champs.");
+    alert("Tafadhali jaza sehemu zote.");
     return;
   }
 
@@ -17,34 +17,52 @@ async function generateUser() {
   const data = await res.json();
 
   if (!data.success) {
-    alert("Erreur serveur.");
+    alert("Hitilafu imetokea.");
     return;
   }
 
-  const u = data.user;
+  window.generatedUser = data.user;
 
-  document.getElementById("resultBox").style.display = "block";
-  document.getElementById("rName").innerHTML = "Nom : <b>" + u.name + "</b>";
-  document.getElementById("rUser").innerHTML = "Username : <b>" + u.username + "</b>";
-  document.getElementById("rPass").innerHTML = "Password : <b>" + u.password + "</b>";
-  document.getElementById("rStart").innerHTML = "Début : <b>" + new Date(u.created).toLocaleString() + "</b>";
-  document.getElementById("rEnd").innerHTML = "Fin : <b>" + new Date(u.endTime).toLocaleString() + "</b>";
+  document.getElementById("pName").innerHTML = "Jina: <b>" + data.user.name + "</b>";
+  document.getElementById("pUser").innerHTML = "Username: <b>" + data.user.username + "</b>";
+  document.getElementById("pPass").innerHTML = "Password: <b>" + data.user.password + "</b>";
+  document.getElementById("pStart").innerHTML = "Anza: <b>" + new Date(data.user.created).toLocaleString() + "</b>";
+  document.getElementById("pEnd").innerHTML = "Inaisha: <b>" + new Date(data.user.endTime).toLocaleString() + "</b>";
 
-  window.generatedUser = u;
+  document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
 }
 
 function copyUser() {
   const u = window.generatedUser;
 
-  const message = `
-WivoZone Wi-Fi Access
-Name: ${u.name}
+  const msg = `
+WivoZone
+Jina: ${u.name}
 Username: ${u.username}
 Password: ${u.password}
-Start: ${new Date(u.created).toLocaleString()}
-End: ${new Date(u.endTime).toLocaleString()}
+Muda wa kifurushi: ${u.duration}
+Inaisha: ${new Date(u.endTime).toLocaleString()}
 `;
 
-  navigator.clipboard.writeText(message);
-  alert("Identifiants copiés !");
+  navigator.clipboard.writeText(msg);
+  alert("Nakala imefanikiwa!");
+}
+
+function sendSMS() {
+  const u = window.generatedUser;
+
+  const msg = encodeURIComponent(
+`WivoZone
+Jina: ${u.name}
+Username: ${u.username}
+Password: ${u.password}
+Muda wa kifurushi: ${u.duration}
+Inaisha: ${new Date(u.endTime).toLocaleString()}
+`);
+
+  window.location.href = `sms:${u.phone}?body=${msg}`;
 }
