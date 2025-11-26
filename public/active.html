@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Utilisateurs connectés – WivoZone</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #f5f5f5; 
+            padding: 30px;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            margin: auto;
+        }
+        .item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Utilisateurs connectés</h2>
+    <div id="list"></div>
+</div>
+
+<script src="protect.js"></script>
+
+<script>
+async function loadActive() {
+    const res = await fetch("/api/active");
+    const data = await res.json();
+
+    const list = document.getElementById("list");
+    list.innerHTML = "";
+
+    if (!data.active || data.active.length === 0) {
+        list.innerHTML = "<p>Aucun utilisateur connecté.</p>";
+        return;
+    }
+
+    data.active.forEach((u, i) => {
+        list.innerHTML += `<div class="item">${i+1}. ${u.username}</div>`;
+    });
+}
+
+loadActive();
+</script>
+
+</body>
+</html>
