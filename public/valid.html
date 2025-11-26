@@ -1,56 +1,61 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <title>Utilisateurs valides – WivoZone</title>
-    <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            background: #f5f5f5; 
-            padding: 30px; 
-        }
-        .box {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            width: 400px;
-            margin: auto;
-        }
-        .item {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-    </style>
-</head>
-<body>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utilisateurs Valides - WivoZone</title>
 
-<div class="box">
-    <h2>Utilisateurs valides</h2>
-    <div id="list"></div>
-</div>
-
-<script src="protect.js"></script>
-
-<script>
-async function loadValid() {
-    const res = await fetch("/api/valid");
-    const data = await res.json();
-
-    const list = document.getElementById("list");
-    list.innerHTML = "";
-
-    if (!data.valid || data.valid.length === 0) {
-        list.innerHTML = "<p>Aucun utilisateur valide.</p>";
-        return;
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f5f5;
+      padding: 30px;
     }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      background: white;
+      border-collapse: collapse;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+    }
+    th {
+      background: black;
+      color: white;
+    }
+    tr:hover {
+      background: #f2f2f2;
+    }
+  </style>
+</head>
 
-    data.valid.forEach((u, i) => {
-        list.innerHTML += `<div class="item">${i+1}. ${u.username}</div>`;
-    });
-}
+<body>
+  <h2>📋 Utilisateurs Valides</h2>
 
-loadValid();
-</script>
+  <table>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Téléphone</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Début</th>
+        <th>Fin</th>
+      </tr>
+    </thead>
+    <tbody id="userList"></tbody>
+  </table>
 
+  <script src="protect.js"></script>
+  <script src="valid.js"></script>
 </body>
 </html>
