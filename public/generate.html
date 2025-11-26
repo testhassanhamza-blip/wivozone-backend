@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Générer Identifiants - WivoZone</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      padding-top: 60px;
+    }
+    .box {
+      background: white;
+      padding: 20px;
+      width: 350px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background: black;
+      color: white;
+      cursor: pointer;
+    }
+    .result {
+      background: #eef;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 6px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <h2>Créer un identifiant Wi-Fi</h2>
+
+    <input type="text" id="name" placeholder="Nom complet">
+    <input type="text" id="phone" placeholder="Numéro (07..., 06...)">
+
+    <select id="duration">
+      <option value="">Choisir le forfait</option>
+      <option value="1 jour">1 jour</option>
+      <option value="3 jours">3 jours</option>
+      <option value="7 jours">7 jours</option>
+      <option value="1 mois">1 mois</option>
+    </select>
+
+    <button onclick="generate()">Générer</button>
+
+    <div class="result" id="resultBox">
+      <h3>Identifiants générés</h3>
+      <p id="rUser"></p>
+      <p id="rPass"></p>
+      <button onclick="copy()">Copier</button>
+    </div>
+  </div>
+
+  <script src="protect.js"></script>
+  <script src="generate.js"></script>
+</body>
+</html>
