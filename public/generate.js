@@ -1,4 +1,4 @@
-async function generate() {
+async function generateUser() {
   const name = document.getElementById("name").value.trim();
   const phone = document.getElementById("phone").value.trim();
   const duration = document.getElementById("duration").value;
@@ -21,17 +21,30 @@ async function generate() {
     return;
   }
 
-  document.getElementById("resultBox").style.display = "block";
-  document.getElementById("rUser").innerHTML = "Nom d'utilisateur : <b>" + data.user.username + "</b>";
-  document.getElementById("rPass").innerHTML = "Mot de passe : <b>" + data.user.password + "</b>";
+  const u = data.user;
 
-  window.generatedUser = data.user; // pour copie
+  document.getElementById("resultBox").style.display = "block";
+  document.getElementById("rName").innerHTML = "Nom : <b>" + u.name + "</b>";
+  document.getElementById("rUser").innerHTML = "Username : <b>" + u.username + "</b>";
+  document.getElementById("rPass").innerHTML = "Password : <b>" + u.password + "</b>";
+  document.getElementById("rStart").innerHTML = "Début : <b>" + new Date(u.created).toLocaleString() + "</b>";
+  document.getElementById("rEnd").innerHTML = "Fin : <b>" + new Date(u.endTime).toLocaleString() + "</b>";
+
+  window.generatedUser = u;
 }
 
-function copy() {
-  const text = 
-    `WivoZone ID\nUsername: ${window.generatedUser.username}\nPassword: ${window.generatedUser.password}`;
-  
-  navigator.clipboard.writeText(text);
-  alert("Copié !");
+function copyUser() {
+  const u = window.generatedUser;
+
+  const message = `
+WivoZone Wi-Fi Access
+Name: ${u.name}
+Username: ${u.username}
+Password: ${u.password}
+Start: ${new Date(u.created).toLocaleString()}
+End: ${new Date(u.endTime).toLocaleString()}
+`;
+
+  navigator.clipboard.writeText(message);
+  alert("Identifiants copiés !");
 }
